@@ -13,7 +13,7 @@
     <style>
         #write-form {
             width: 800px;
-            margin-top: 100px;
+            margin-top: 50px;
         }
     </style>
 </head>
