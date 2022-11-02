@@ -45,6 +45,13 @@
             <th>contents</th>
             <td>${board.boardContents}</td>
         </tr>
+        <tr>
+            <th>file</th>
+            <td>
+                <img src="${pageContext.request.contextPath}/upload/${board.storedFileName}"
+                     alt="" width="100" height="100">
+            </td>
+        </tr>
     </table>
     <button class="btn btn-primary" onclick="listFn()">목록</button>
     <button class="btn btn-warning" onclick="updateFn()">수정</button>
