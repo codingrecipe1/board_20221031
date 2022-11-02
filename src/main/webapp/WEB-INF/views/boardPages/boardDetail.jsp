@@ -60,7 +60,8 @@
         location.href = "/board/update?id=" + id;
     }
     const deleteFn = () => {
-        location.href = "";
+        const id = '${board.id}';
+        location.href = "/board/deleteCheck?id=" + id;
     }
 </script>
 </html>

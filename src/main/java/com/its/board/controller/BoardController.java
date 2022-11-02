@@ -71,6 +71,21 @@ public class BoardController {
         return "boardPages/boardDetail";
     }
 
+    // 삭제 화면 요청
+    @GetMapping("/deleteCheck")
+    public String deleteCheck(@RequestParam("id") Long id, Model model) {
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("board", boardDTO);
+        return "boardPages/deleteCheck";
+    }
+
+    // 삭제 처리
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        boardService.delete(id);
+        return "redirect:/board/";
+    }
+
 
 }
 
