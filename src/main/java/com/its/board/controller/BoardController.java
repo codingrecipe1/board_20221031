@@ -49,5 +49,39 @@ public class BoardController {
         return "boardPages/boardDetail";
     }
 
+    // 수정화면 요청
+    @GetMapping("/update")
+    public String updateForm(@RequestParam("id") Long id, Model model) {
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("board", boardDTO);
+        return "boardPages/boardUpdate";
+    }
+
+    // 수정처리
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+        boardService.update(boardDTO);
+        // 수정 처리 후 상세페이지 출력
+        // redirect로 상세페이지 요청
+//        return "redirect:/board?id=" + boardDTO.getId();
+        // DB에서 가져와서 boardDetail 출력
+        BoardDTO dto = boardService.findById(boardDTO.getId());
+        model.addAttribute("board", dto);
+        return "boardPages/boardDetail";
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

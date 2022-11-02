@@ -46,4 +46,9 @@
     </table>
 </div>
 </body>
+<script>
+    const temp = () => {
+        const id = '${board.id}';
+    }
+</script>
 </html>

@@ -32,4 +32,8 @@ public class BoardService {
         // 상세내용 가져와서 리턴
         return boardRepository.findById(id);
     }
+
+    public void update(BoardDTO boardDTO) {
+        boardRepository.update(boardDTO);
+    }
 }

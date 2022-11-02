@@ -56,7 +56,8 @@
         location.href = "/board/";
     }
     const updateFn = () => {
-        location.href = "";
+        const id = '${board.id}';
+        location.href = "/board/update?id=" + id;
     }
     const deleteFn = () => {
         location.href = "";
