@@ -4,8 +4,8 @@
 
 <mapper namespace="Board">
     <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
-        insert into board_table(boardWriter, boardPass, boardTitle, boardContents)
-            values(#{boardWriter}, #{boardPass}, #{boardTitle}, #{boardContents})
+        insert into board_table(boardWriter, boardPass, boardTitle, boardContents, fileAttached)
+            values(#{boardWriter}, #{boardPass}, #{boardTitle}, #{boardContents}, #{fileAttached})
     </insert>
     <insert id="saveFile" parameterType="board">
         insert into board_file_table(originalFileName, storedFileName, boardId)
@@ -18,6 +18,9 @@
         update board_table set boardHits = boardHits + 1 where id=#{id}
     </update>
     <select id="findById" parameterType="Long" resultType="board">
+        select * from board_table where id=#{id}
+    </select>
+    <select id="findByIdFile" parameterType="Long" resultType="board">
         select * from board_table b, board_file_table bf
                 where b.id=bf.boardId and b.id=#{id}
     </select>

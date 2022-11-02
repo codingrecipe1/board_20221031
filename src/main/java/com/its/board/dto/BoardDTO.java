@@ -24,4 +24,6 @@ public class BoardDTO {
     private String originalFileName;
     // 서버관리 이름용 필드
     private String storedFileName;
+    // 파일첨부 여부
+    private int fileAttached;
 }
