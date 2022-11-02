@@ -25,10 +25,13 @@ public class BoardService {
         List<BoardDTO> boardDTOList = boardRepository.findAll();
         return boardDTOList;
     }
+    public void updateHits(Long id) {
+        boardRepository.updateHits(id);
+    }
 
     public BoardDTO findById(Long id) {
         // 조회수 증가
-        boardRepository.updateHits(id);
+//        boardRepository.updateHits(id);
         // 상세내용 가져와서 리턴
         return boardRepository.findById(id);
     }
@@ -36,4 +39,5 @@ public class BoardService {
     public void update(BoardDTO boardDTO) {
         boardRepository.update(boardDTO);
     }
+
 }
