@@ -11,10 +11,14 @@
 <head>
     <title>boardDetail.jsp</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <script src="/resources/js/jquery.js"></script>
     <style>
         #detail {
             width: 800px;
             margin-top: 50px;
+        }
+        #comment-write {
+            width: 600px;
         }
     </style>
 </head>
@@ -60,8 +64,43 @@
     <button class="btn btn-warning" onclick="updateFn()">수정</button>
     <button class="btn btn-danger" onclick="deleteFn()">삭제</button>
 </div>
+<div class="container mt-5" id="comment-write" >
+    <div class="input-group-sm mb-3">
+        <div class="form-floating">
+            <input type="text" id="commentWriter" class="form-control" placeholder="작성자">
+            <label for="commentWriter">작성자</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" id="commentContents" class="form-control" placeholder="내용">
+            <label for="commentContents">내용</label>
+        </div>
+        <button id="comment-write-btn" class="btn btn-secondary" onclick="commentWrite()">댓글작성</button>
+        <%-- commentWrite 버튼을 클릭하면 작성자, 내용, 글번호 정보를  --%>
+    </div>
+</div>
 </body>
 <script>
+    const commentWrite = () => {
+        const writer = document.getElementById("commentWriter").value;
+        const contents = document.getElementById("commentContents").value;
+        const board = '${board.id}';
+        $.ajax({
+            type: "post",
+            url: "/comment/save",
+            data: {
+                commentWriter: writer,
+                commentContents: contents,
+                boardId: board
+            },
+            dataType: "json",
+            success: function (commentList) {
+                console.log(commentList);
+            },
+            error: function () {
+                console.log("실패");
+            }
+        });
+    }
     const listFn = () => {
         const page = '${page}';
         location.href = "/board/paging?page=" + page;
