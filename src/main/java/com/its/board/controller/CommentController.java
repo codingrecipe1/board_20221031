@@ -17,6 +17,7 @@ public class CommentController {
     @PostMapping("/save")
     public @ResponseBody List<CommentDTO> save(@ModelAttribute CommentDTO commentDTO) {
         commentService.save(commentDTO);
-        return null;
+        List<CommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardId());
+        return commentDTOList;
     }
 }

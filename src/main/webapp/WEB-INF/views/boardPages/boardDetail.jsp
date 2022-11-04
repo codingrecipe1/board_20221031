@@ -7,11 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>boardDetail.jsp</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="/resources/js/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <style>
         #detail {
             width: 800px;
@@ -79,6 +81,24 @@
     </div>
 </div>
 </body>
+<div class="container mt-5" id="comment-list">
+    <table class="table">
+        <tr>
+            <th>댓글번호</th>
+            <th>작성자</th>
+            <th>내용</th>
+            <th>작성시간</th>
+        </tr>
+        <c:forEach items="${commentList}" var="comment">
+            <tr>
+                <td>${comment.id}</td>
+                <td>${comment.commentWriter}</td>
+                <td>${comment.commentContents}</td>
+                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${comment.commentCreatedDate}"></fmt:formatDate></td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 <script>
     const commentWrite = () => {
         const writer = document.getElementById("commentWriter").value;
@@ -95,6 +115,23 @@
             dataType: "json",
             success: function (commentList) {
                 console.log(commentList);
+                let output = "<table class='table'>";
+                output += "<tr><th>댓글번호</th>";
+                output += "<th>작성자</th>";
+                output += "<th>내용</th>";
+                output += "<th>작성시간</th></tr>";
+                for(let i in commentList){
+                    output += "<tr>";
+                    output += "<td>"+commentList[i].id+"</td>";
+                    output += "<td>"+commentList[i].commentWriter+"</td>";
+                    output += "<td>"+commentList[i].commentContents+"</td>";
+                    output += "<td>"+moment(commentList[i].commentCreatedDate).format("YYYY-MM-DD HH:mm:ss")+"</td>";
+                    output += "</tr>";
+                }
+                output += "</table>";
+                document.getElementById('comment-list').innerHTML = output;
+                document.getElementById('commentWriter').value='';
+                document.getElementById('commentContents').value='';
             },
             error: function () {
                 console.log("실패");
